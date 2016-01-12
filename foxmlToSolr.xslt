@@ -53,23 +53,23 @@
     while the PID IndexField is optional.
   -->
 
-  <xsl:include href="/home/nruest/git/fedora3-camel-indexer-xslt/islandora_transforms/islandora_transforms/DC_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fedora3-camel-indexer-xslt/islandora_transforms/islandora_transforms/RELS-EXT_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fedora3-camel-indexer-xslt/islandora_transforms/islandora_transforms/RELS-INT_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fedora3-camel-indexer-xslt/islandora_transforms/islandora_transforms/FOXML_properties_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fedora3-camel-indexer-xslt/islandora_transforms/islandora_transforms/datastream_id_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fedora3-camel-indexer-xslt/islandora_transforms/islandora_transforms/slurp_all_ead_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fedora3-camel-indexer-xslt/islandora_transforms/islandora_transforms/slurp_all_FITS_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fedora3-camel-indexer-xslt/islandora_transforms/islandora_transforms/slurp_all_MODS_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fedora3-camel-indexer-xslt/islandora_transforms/islandora_transforms/slurp_all_DFXML_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fedora3-camel-indexer-xslt/islandora_transforms/islandora_transforms/EACCPF_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fedora3-camel-indexer-xslt/islandora_transforms/islandora_transforms/TEI_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fedora3-camel-indexer-xslt/islandora_transforms/islandora_transforms/text_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fedora3-camel-indexer-xslt/islandora_transforms/islandora_transforms/XML_to_one_solr_field.xslt"/>
-  <xsl:include href="/home/nruest/git/fedora3-camel-indexer-xslt/islandora_transforms/islandora_transforms/XML_text_nodes_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fedora3-camel-indexer-xslt/islandora_transforms/islandora_transforms/MADS_to_solr.xslt"/>
+  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/DC_to_solr.xslt"/>
+  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/RELS-EXT_to_solr.xslt"/>
+  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/RELS-INT_to_solr.xslt"/>
+  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/FOXML_properties_to_solr.xslt"/>
+  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/datastream_id_to_solr.xslt"/>
+  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/slurp_all_ead_to_solr.xslt"/>
+  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/slurp_all_FITS_to_solr.xslt"/>
+  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/slurp_all_MODS_to_solr.xslt"/>
+  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/slurp_all_DFXML_to_solr.xslt"/>
+  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/EACCPF_to_solr.xslt"/>
+  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/TEI_to_solr.xslt"/>
+  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/text_to_solr.xslt"/>
+  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/XML_to_one_solr_field.xslt"/>
+  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/XML_text_nodes_to_solr.xslt"/>
+  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/MADS_to_solr.xslt"/>
   <!-- Used for indexing other objects.
-  <xsl:include href="/home/nruest/git/fedora3-camel-indexer-xslt/islandora_transforms/islandora_transforms/library/traverse-graph.xslt"/>
+  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/library/traverse-graph.xslt"/>
   -->
 
   <!-- Decide which objects to modify the index of -->
@@ -182,16 +182,6 @@
       </field>
     </doc>
   </add>
-  </xsl:template>
-
-  <!-- Delete the solr doc of an object -->
-  <xsl:template match="/foxml:digitalObject" mode="unindexFedoraObject">
-    <xsl:comment> name="PID" This is a hack, because the code requires that to be present </xsl:comment>
-    <delete>
-      <id>
-        <xsl:value-of select="$PID"/>
-      </id>
-    </delete>
   </xsl:template>
 
   <!-- This prevents text from just being printed to the doc without field elements JUST TRY COMMENTING IT OUT -->
