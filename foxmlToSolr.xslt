@@ -19,12 +19,13 @@
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:tei="http://www.tei-c.org/ns/1.0"
   xmlns:mods="http://www.loc.gov/mods/v3"
-  xmlns:exts="xalan://dk.defxws.fedoragsearch.server.GenericOperationsImpl"
+  xmlns:sparql="http://www.w3.org/2001/sw/DataAccess/rf1/result"
+  xmlns:gsearch="xalan://dk.defxws.fedoragsearch.server.GenericOperationsImpl"
   xmlns:dfxml="http://www.forensicswiki.org/wiki/Category:Digital_Forensics_XML"
   xmlns:islandora-exts="xalan://ca.upei.roblib.DataStreamForXSLT"
-            exclude-result-prefixes="exts"
-            xmlns:encoder="xalan://java.net.URLEncoder"
-            xmlns:java="http://xml.apache.org/xalan/java">
+  exclude-result-prefixes="gsearch string encoder"
+  xmlns:encoder="xalan://java.net.URLEncoder"
+  xmlns:java="http://xml.apache.org/xalan/java">
 
   <xsl:output method="xml" indent="yes" encoding="UTF-8"/>
 
@@ -53,23 +54,23 @@
     while the PID IndexField is optional.
   -->
 
-  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/DC_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/RELS-EXT_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/RELS-INT_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/FOXML_properties_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/datastream_id_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/slurp_all_ead_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/slurp_all_FITS_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/slurp_all_MODS_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/slurp_all_DFXML_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/EACCPF_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/TEI_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/text_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/XML_to_one_solr_field.xslt"/>
-  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/XML_text_nodes_to_solr.xslt"/>
-  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/MADS_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/islandora_transforms/DC_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/islandora_transforms/RELS-EXT_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/islandora_transforms/RELS-INT_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/islandora_transforms/FOXML_properties_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/islandora_transforms/datastream_id_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/islandora_transforms/slurp_all_ead_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/islandora_transforms/slurp_all_FITS_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/islandora_transforms/slurp_all_MODS_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/islandora_transforms/slurp_all_DFXML_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/islandora_transforms/EACCPF_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/islandora_transforms/TEI_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/islandora_transforms/text_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/islandora_transforms/XML_to_one_solr_field.xslt"/>
+  <xsl:include href="islandora_transforms/islandora_transforms/XML_text_nodes_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/islandora_transforms/MADS_to_solr.xslt"/>
   <!-- Used for indexing other objects.
-  <xsl:include href="/home/nruest/git/fc3-camel-indexer-xslt/islandora_transforms/islandora_transforms/library/traverse-graph.xslt"/>
+  <xsl:include href="islandora_transforms/islandora_transforms/library/traverse-graph.xslt"/>
   -->
 
   <!-- Decide which objects to modify the index of -->
@@ -145,7 +146,7 @@
               other mimetypes should not be being sent
               will this let us not use the content variable? -->
             <xsl:apply-templates select="foxml:datastreamVersion[last()]">
-              <xsl:with-param name="content" select="java:ca.discoverygarden.gsearch_extensions.XMLStringUtils.escapeForXML(normalize-space(exts:getDatastreamText($PID, $REPOSITORYNAME, @ID, $FEDORASOAP, $FEDORAUSER, $FEDORAPASS, $TRUSTSTOREPATH, $TRUSTSTOREPASS)))"/>
+              <xsl:with-param name="content" select="java:ca.discoverygarden.gsearch_extensions.XMLStringUtils.escapeForXML(normalize-space(gsearch:getDatastreamText($PID, $REPOSITORYNAME, @ID, $FEDORASOAP, $FEDORAUSER, $FEDORAPASS, $TRUSTSTOREPATH, $TRUSTSTOREPASS)))"/>
             </xsl:apply-templates>
           </xsl:when>
         </xsl:choose>
@@ -176,7 +177,7 @@
           <xsl:text>&#160;</xsl:text>
         </xsl:for-each>
         <xsl:for-each select="//foxml:datastream[@CONTROL_GROUP='M' or @CONTROL_GROUP='E' or @CONTROL_GROUP='R']">
-          <xsl:value-of select="exts:getDatastreamText($PID, $REPOSITORYNAME, @ID, $FEDORASOAP, $FEDORAUSER, $FEDORAPASS, $TRUSTSTOREPATH, $TRUSTSTOREPASS)"/>
+          <xsl:value-of select="gsearch:getDatastreamText($PID, $REPOSITORYNAME, @ID, $FEDORASOAP, $FEDORAUSER, $FEDORAPASS, $TRUSTSTOREPATH, $TRUSTSTOREPASS)"/>
           <xsl:text>&#160;</xsl:text>
         </xsl:for-each>
       </field>
