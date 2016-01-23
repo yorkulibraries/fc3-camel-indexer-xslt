@@ -23,11 +23,11 @@
   xmlns:gsearch="xalan://dk.defxws.fedoragsearch.server.GenericOperationsImpl"
   xmlns:dfxml="http://www.forensicswiki.org/wiki/Category:Digital_Forensics_XML"
   xmlns:islandora-exts="xalan://ca.upei.roblib.DataStreamForXSLT"
-  exclude-result-prefixes="gsearch string encoder"
+  exclude-result-prefixes="gsearch encoder"
   xmlns:encoder="xalan://java.net.URLEncoder"
   xmlns:java="http://xml.apache.org/xalan/java">
 
-  <xsl:output method="xml" indent="yes" encoding="UTF-8"/>
+  <xsl:output method="xml" indent="yes" omit-xml-declaration="yes" encoding="UTF-8"/>
 
   <!-- gsearch magik @TODO: see if any of the explicit variables can be replaced by these -->
   <xsl:param name="REPOSITORYNAME" select="repositoryName"/>
@@ -54,23 +54,23 @@
     while the PID IndexField is optional.
   -->
 
-  <xsl:include href="islandora_transforms/islandora_transforms/DC_to_solr.xslt"/>
-  <xsl:include href="islandora_transforms/islandora_transforms/RELS-EXT_to_solr.xslt"/>
-  <xsl:include href="islandora_transforms/islandora_transforms/RELS-INT_to_solr.xslt"/>
-  <xsl:include href="islandora_transforms/islandora_transforms/FOXML_properties_to_solr.xslt"/>
-  <xsl:include href="islandora_transforms/islandora_transforms/datastream_id_to_solr.xslt"/>
-  <xsl:include href="islandora_transforms/islandora_transforms/slurp_all_ead_to_solr.xslt"/>
-  <xsl:include href="islandora_transforms/islandora_transforms/slurp_all_FITS_to_solr.xslt"/>
-  <xsl:include href="islandora_transforms/islandora_transforms/slurp_all_MODS_to_solr.xslt"/>
-  <xsl:include href="islandora_transforms/islandora_transforms/slurp_all_DFXML_to_solr.xslt"/>
-  <xsl:include href="islandora_transforms/islandora_transforms/EACCPF_to_solr.xslt"/>
-  <xsl:include href="islandora_transforms/islandora_transforms/TEI_to_solr.xslt"/>
-  <xsl:include href="islandora_transforms/islandora_transforms/text_to_solr.xslt"/>
-  <xsl:include href="islandora_transforms/islandora_transforms/XML_to_one_solr_field.xslt"/>
-  <xsl:include href="islandora_transforms/islandora_transforms/XML_text_nodes_to_solr.xslt"/>
-  <xsl:include href="islandora_transforms/islandora_transforms/MADS_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/DC_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/RELS-EXT_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/RELS-INT_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/FOXML_properties_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/datastream_id_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/slurp_all_ead_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/slurp_all_FITS_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/slurp_all_MODS_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/slurp_all_DFXML_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/EACCPF_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/TEI_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/text_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/XML_to_one_solr_field.xslt"/>
+  <xsl:include href="islandora_transforms/XML_text_nodes_to_solr.xslt"/>
+  <xsl:include href="islandora_transforms/MADS_to_solr.xslt"/>
   <!-- Used for indexing other objects.
-  <xsl:include href="islandora_transforms/islandora_transforms/library/traverse-graph.xslt"/>
+  <xsl:include href="islandora_transforms/library/traverse-graph.xslt"/>
   -->
 
   <!-- Decide which objects to modify the index of -->
