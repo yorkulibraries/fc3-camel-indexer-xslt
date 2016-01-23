@@ -6,7 +6,7 @@
   xmlns:foxml="info:fedora/fedora-system:def/foxml#"
   xmlns:mods="http://www.loc.gov/mods/v3"
      exclude-result-prefixes="mods java">
-  <xsl:include href="islandora_transforms/islandora_transforms/library/xslt-date-template.xslt"/>
+  <xsl:include href="islandora_transforms/library/xslt-date-template.xslt"/>
   <!-- HashSet to track single-valued fields. -->
   <xsl:variable name="single_valued_hashset" select="java:java.util.HashSet.new()"/>
 
